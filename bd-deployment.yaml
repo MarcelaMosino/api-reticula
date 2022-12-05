@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reticula-mysql-de
+  labels:
+    api: reticula-api-des
+    tier: backend
+spec:
+  selector:
+    matchLabels:
+      api: reticula-api-des
+      rol: database
+      tier: backend
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        api: reticula-api-des
+        rol: database
+        tier: backend
+    spec:
+      volumes:
+      - name: volumen-persistente
+        persistentVolumeClaim:
+          claimName: volumen-reclamo
+      containers:
+      - name: reticulas-mysql
+        image: marcelamosino/mysql:v3
+        ports:
+        - containerPort: 3306
+        volumeMounts:
+        - mountPath: "/var/lib/mysql"
+          name: volumen-persistente

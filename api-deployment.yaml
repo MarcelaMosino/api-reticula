@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-deploy-ret
+  labels: 
+    api: reticula-api-des
+    tier: backend
+spec:
+  selector:
+    matchLabels:
+      api: reticula-api-des
+      rol: web-service
+      tier: backend
+  replicas: 7
+  template:
+    metadata:
+      labels:
+        api: reticula-api-des
+        rol: web-service
+        tier: backend
+    spec:
+      containers:
+      - name: api-reticula
+        image: marcelamosino/reticula:v1
+        ports:
+        - containerPort: 80
+        env:
+        - name: DB_PASS
+          value: pass

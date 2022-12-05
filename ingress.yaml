@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingreso-reticula
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: app.mmosino.com
+    http:
+      paths:
+      - path: /completo/
+        pathType: Prefix
+        backend:
+          service:
+            name: reticula-api-des
+            port:
+              number: 80
